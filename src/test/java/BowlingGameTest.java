@@ -47,7 +47,7 @@ class BowlingGameTest {
     @Test
     void shouldScore300When12Strikes() {
         for (int i = 0; i < 9; i++) {
-            game.addFrame(10);
+            game.addFrame(10, 0);
         }
         game.addFrame(10, 10, 10);
         assertThat(game.getScore()).isEqualTo(300);

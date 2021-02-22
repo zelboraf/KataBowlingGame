@@ -8,10 +8,6 @@ public class BowlingGame {
         this.frames = new ArrayList<>();
     }
 
-    public void addFrame(int roll0) {
-        addFrame(roll0, 0);
-    }
-
     public void addFrame(int roll0, int roll1) {
         frames.add(new Frame(roll0, roll1));
     }
@@ -25,20 +21,17 @@ public class BowlingGame {
         for (int i = 0; i < frames.size(); i++) {
             Frame currentFrame = frames.get(i);
             score += currentFrame.getScore();
-            if (currentFrame.isSpare()) {
-                if (currentFrame.isNotLast()) {
-                    Frame nextFrame = frames.get(i + 1);
-                    score += nextFrame.getRoll0();
-                }
-            } else if (currentFrame.isStrike()) {
-                if (currentFrame.isNotLast()) {
-                    Frame nextFrame = frames.get(i + 1);
-                    score += nextFrame.getScore();
-                    if (nextFrame.isStrike() && nextFrame.isNotLast()) {
-                        Frame nextNextFrame = frames.get(i + 2);
-                        if (nextNextFrame.isNotLast()) {
-                            score += nextNextFrame.getRoll0();
-                        }
+
+            if (currentFrame.isSpare() && currentFrame.isNotLast()) {
+                Frame nextFrame = frames.get(i + 1);
+                score += nextFrame.getRoll0();
+            } else if (currentFrame.isStrike() && currentFrame.isNotLast()) {
+                Frame nextFrame = frames.get(i + 1);
+                score += nextFrame.getScore();
+                if (nextFrame.isStrike() && nextFrame.isNotLast()) {
+                    Frame nextNextFrame = frames.get(i + 2);
+                    if (nextNextFrame.isNotLast()) {
+                        score += nextNextFrame.getRoll0();
                     }
                 }
             }
